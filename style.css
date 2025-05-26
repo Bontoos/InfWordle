@@ -1,0 +1,743 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #121213;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #ffffff;
+    letter-spacing: 2px;
+}
+
+.game-board {
+    display: grid;
+    grid-gap: 5px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+}
+
+.cell {
+    width: 62px;
+    height: 62px;
+    border: 2px solid #3a3a3c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #121213;
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.cell.filled {
+    border-color: #565758;
+    animation: pop 0.1s ease-in-out;
+}
+
+.cell.correct {
+    background-color: #538d4e;
+    border-color: #538d4e;
+}
+
+.cell.present {
+    background-color: #b59f3b;
+    border-color: #b59f3b;
+}
+
+.cell.absent {
+    background-color: #3a3a3c;
+    border-color: #3a3a3c;
+}
+
+.cell.flip {
+    animation: flip 0.6s ease-in-out;
+}
+
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes flip {
+    0% { transform: rotateX(0); }
+    50% { transform: rotateX(90deg); }
+    100% { transform: rotateX(0); }
+}
+
+.row.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.keyboard {
+    margin-bottom: 20px;
+}
+
+.keyboard-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+    gap: 6px;
+}
+
+.key {
+    min-width: 43px;
+    height: 58px;
+    border: none;
+    border-radius: 4px;
+    background-color: #818384;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    transition: all 0.1s ease;
+}
+
+.key:hover {
+    background-color: #9ca3a4;
+}
+
+.key:active {
+    transform: scale(0.95);
+}
+
+.key.special-key {
+    min-width: 65px;
+    font-size: 12px;
+}
+
+.key.correct {
+    background-color: #538d4e;
+}
+
+.key.present {
+    background-color: #b59f3b;
+}
+
+.key.absent {
+    background-color: #3a3a3c;
+}
+
+.message {
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    color: #121213;
+    padding: 16px 24px;
+    border-radius: 4px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.message.show {
+    opacity: 1;
+}
+
+.new-game-btn {
+    background-color: #538d4e;
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.new-game-btn:hover {
+    background-color: #6aaa64;
+}
+
+.new-game-btn:active {
+    transform: scale(0.98);
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+    
+    .cell {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .key {
+        min-width: 35px;
+        height: 50px;
+        font-size: 12px;
+    }
+    
+    .key.special-key {
+        min-width: 55px;
+        font-size: 10px;
+    }
+}
+
+
+/* Add these styles to your existing style.css file */
+
+/* Header buttons styling */
+.header-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.premium-btn {
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(255, 107, 53, 0.2);
+}
+
+.premium-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+.premium-btn:active {
+    transform: translateY(0);
+}
+
+.mode-selector {
+    background-color: #3a3a3c;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    position: relative;
+    transition: background-color 0.2s ease;
+}
+
+.mode-selector:hover {
+    background-color: #565758;
+}
+
+/* Mode dropdown styling */
+.mode-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1a1a1b;
+    border: 2px solid #3a3a3c;
+    border-radius: 8px;
+    min-width: 200px;
+    z-index: 1000;
+    display: none;
+    margin-top: 5px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.mode-dropdown.show {
+    display: block;
+    animation: dropdownSlide 0.2s ease;
+}
+
+@keyframes dropdownSlide {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.mode-option {
+    padding: 12px 16px;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid #3a3a3c;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mode-option:last-child {
+    border-bottom: none;
+}
+
+.mode-option:hover:not(.disabled) {
+    background-color: #3a3a3c;
+}
+
+.mode-option.premium {
+    color: #ff6b35;
+    position: relative;
+}
+
+.mode-option.premium::after {
+    content: "🔒";
+    font-size: 14px;
+}
+
+.mode-option.premium.unlocked {
+    color: #538d4e;
+}
+
+.mode-option.premium.unlocked::after {
+    content: "✓";
+}
+
+.mode-option.disabled {
+    color: #666;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.mode-option.disabled:hover {
+    background-color: transparent;
+}
+
+/* Update header positioning */
+header {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+/* Update existing new game button */
+.new-game-btn {
+    background-color: #538d4e;
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 20px;
+}
+
+.new-game-btn:hover {
+    background-color: #6aaa64;
+    transform: translateY(-1px);
+}
+
+.new-game-btn:active {
+    transform: translateY(0);
+}
+
+/* Responsive design updates */
+@media (max-width: 480px) {
+    .header-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .premium-btn, .mode-selector {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .mode-dropdown {
+        width: 90%;
+        min-width: unset;
+        left: 5%;
+        transform: none;
+    }
+    
+    .mode-dropdown.show {
+        transform: none;
+    }
+    
+    @keyframes dropdownSlide {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+
+/* Add these styles to your existing style.css file */
+
+/* Dynamic grid for different word lengths */
+.game-board {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    gap: 5px;
+    margin: 20px 0;
+    justify-content: center;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(var(--word-length, 5), 1fr);
+    gap: 5px;
+    justify-content: center;
+}
+
+.cell {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #3a3a3c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #121213;
+    transition: all 0.2s ease;
+}
+
+.cell.filled {
+    border-color: #565758;
+    animation: cellPop 0.1s ease;
+}
+
+.cell.correct {
+    background-color: #538d4e;
+    border-color: #538d4e;
+    color: #ffffff;
+}
+
+.cell.present {
+    background-color: #b59f3b;
+    border-color: #b59f3b;
+    color: #ffffff;
+}
+
+.cell.absent {
+    background-color: #3a3a3c;
+    border-color: #3a3a3c;
+    color: #ffffff;
+}
+
+/* Animations */
+@keyframes cellPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.shake {
+    animation: shake 0.6s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* Mode dropdown current selection */
+.mode-option.current {
+    background-color: #538d4e;
+    color: white;
+    font-weight: bold;
+}
+
+.mode-option.current::after {
+    content: "✓";
+    color: white;
+}
+
+/* Message styling */
+.message.success {
+    color: #538d4e;
+    font-weight: bold;
+}
+
+.message.error {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.message.info {
+    color: #b59f3b;
+    font-weight: bold;
+}
+
+/* Responsive adjustments for different word lengths */
+@media (max-width: 768px) {
+    .cell {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cell {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .row {
+        gap: 3px;
+    }
+    
+    .game-board {
+        gap: 3px;
+    }
+}
+
+/* For very long words (12 letters) */
+@media (max-width: 1200px) {
+    .game-board[style*="--word-length: 12"] .cell,
+    .game-board[style*="--word-length: 8"] .cell {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .game-board[style*="--word-length: 12"] .cell,
+    .game-board[style*="--word-length: 8"] .cell {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+}
+
+
+/* Game Over Screen Styles */
+.game-over-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.game-over-modal {
+    background: white;
+    border-radius: 12px;
+    padding: 0;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease-out;
+    overflow: hidden;
+}
+
+.game-over-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.game-over-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.game-over-content {
+    padding: 24px;
+    text-align: center;
+}
+
+.target-word {
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: #333;
+}
+
+.target-word strong {
+    color: #667eea;
+    font-size: 22px;
+    letter-spacing: 2px;
+    font-family: 'Courier New', monospace;
+}
+
+.win-message {
+    color: #28a745;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.lose-message {
+    color: #dc3545;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.game-over-stats {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.stat:last-child {
+    margin-bottom: 0;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 14px;
+}
+
+.stat-value {
+    color: #333;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.game-over-actions {
+    padding: 20px 24px;
+    background: #f8f9fa;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 100px;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #5a6fd8;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+    transform: translateY(-1px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .game-over-modal {
+        width: 95%;
+        margin: 20px;
+    }
+    
+    .game-over-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+}

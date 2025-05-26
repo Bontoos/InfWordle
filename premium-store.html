@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Features - Wordle</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="premium-store.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>WORDLE PREMIUM</h1>
+            <button class="back-btn" onclick="window.location.href='index.html'">← Back to Game</button>
+        </header>
+        
+        <div class="premium-grid" id="premiumGrid">
+            <!-- Premium features will be loaded here -->
+        </div>
+        
+        <div class="user-features">
+            <h3>Your Premium Features</h3>
+            <div id="userFeatures" class="user-features-list">
+                <!-- User's purchased features will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Purchase Premium Feature</h2>
+            <div id="paymentDetails">
+                <!-- Payment details will be inserted here -->
+            </div>
+            <div class="payment-buttons">
+                <button id="confirmPurchase" class="purchase-btn">Confirm Purchase</button>
+                <button id="cancelPurchase" class="cancel-btn">Cancel</button>
+            </div>
+            <div id="paymentStatus" class="payment-status"></div>
+        </div>
+    </div>
+
+    <!-- Trial Modal -->
+    <div class="modal" id="trialModal">
+        <div class="modal-content">
+            <span class="close" id="closeTrialModal">&times;</span>
+            <h2>Free Trial</h2>
+            <div id="trialDetails">
+                <!-- Trial details will be inserted here -->
+            </div>
+            <div class="payment-buttons">
+                <button id="startTrial" class="trial-btn">Start Free Trial</button>
+                <button id="cancelTrial" class="cancel-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="premium.js"></script>
+    <script src="premium-store.js"></script>
+</body>
+</html>
